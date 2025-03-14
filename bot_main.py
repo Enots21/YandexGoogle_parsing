@@ -2,7 +2,7 @@ from aiogram import Bot, Dispatcher, types, Router, F
 from aiogram.filters import Command
 from aiogram.types import Message
 from aiogram.utils.keyboard import ReplyKeyboardBuilder
-from main import get_webcam_news
+from use_news import fetch_news
 import logging
 import asyncio
 import config
@@ -38,9 +38,13 @@ async def echo_hello(message: types.Message):
 
 @router.message(F.text == "Новости")
 async def echo_help(message: types.Message):
-    news = get_webcam_news()
-    for new in news:
-        await message.answer(new)
+    await message.answer("Ожидайте Новости подгружаются")
+    news = fetch_news()
+    if news is None:
+        await message.answer("Ошибка загрузки новостей")
+    else:
+        for new in news:
+            await message.answer(f"{new[0]}, {new[1]}, {new[2]}, {new[3]}")
 
 # Регистрируем маршрутизатор в диспетчере
 dp.include_router(router)
