@@ -22,11 +22,13 @@ def fetch_news():
         yandex_news_results = []
 
     combined_results = google_news_results + yandex_news_results
+    # Удаляем дубликаты
+    combined_results = list(set(combined_results))
 
-    if combined_results:
-        logging.info(f'Найдено новостей: {len(combined_results)}')
-        return combined_results
-    else:
-        logging.info('Ничего не найдено')
+    # Выводим логи
+    logging.info(f'Извлечено новостей из Google News: {len(google_news_results)}')
+    logging.info(f'Извлечено новостей из Yandex News: {len(yandex_news_results)}')
+    logging.info(f'Объединено новостей: {len(combined_results)}')
 
+    return combined_results
 

@@ -44,7 +44,7 @@ async def echo_help(message: types.Message):
         await message.answer("Ошибка загрузки новостей")
     else:
         for new in news:
-            await message.answer(f"{new[0]}, {new[1]}, {new[2]}, {new[3]}")
+            await message.answer(f"{new[0]}, {new[1]}")
 
 # Регистрируем маршрутизатор в диспетчере
 dp.include_router(router)
